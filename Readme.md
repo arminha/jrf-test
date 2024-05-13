@@ -15,22 +15,28 @@
 * [VisualVM](https://visualvm.github.io/)
 * [Java JFR Profiler](https://plugins.jetbrains.com/plugin/20937-java-jfr-profiler) for IntelliJ
 
-Profiles
-
 ### Where can I use it?
 
 JFR requires OpenJDK 11+ or OpenJDK 8u262 ([release notes](https://mail.openjdk.org/pipermail/jdk8u-dev/2020-July/012143.html))
 
-JMX streaming required OpenJDK 17+.
+JMX streaming requires OpenJDK 17+.
 
 ### How to use it?
 
 There are lots of configuration knobs. Azul has a good [documentation](https://docs.azul.com/prime/Java-Flight-Recorder).
 
+For our test we start the JFR with JVM parameters. We use the two default profiles that come with the JVM.
+
+1. The [Profiling Profile](./profile.jfc) has around 2% performance overhead  
+   `-XX:StartFlightRecording=dumponexit=true,settings=profile,filename=profile.jfr`
+2. The [Default Profile](./default.jfc) has around 1% performance overhead and is meant for continuous use in production   
+   `-XX:StartFlightRecording=dumponexit=true,settings=default,filename=default.jfr`
+
 ## Profiling
 
 ### Method profiling
 
+TODO
 
 ### Allocations
 
@@ -39,14 +45,6 @@ Profiling -> Sampling not Tracing
 
 
 TODO
-
-
-
-## Streaming / Integration in APM tools
-
-https://docs.newrelic.com/docs/apm/agents/java-agent/features/real-time-profiling-java-using-jfr-metrics/
-
-https://devblogs.microsoft.com/java/microsoft-jfr-streaming/
 
 ## Resources
 
