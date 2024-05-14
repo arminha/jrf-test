@@ -3,24 +3,39 @@ package erni.example.jfr.brackets;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         BracketValidator validator = new BracketValidator();
         List<String> testValues = generateTestValues();
 
         System.out.println("Setup done.");
 
+        var duration = runInNewThread(() -> doWork(testValues, validator));
+
+        System.out.println("Took " + duration);
+    }
+
+    private static Duration doWork(List<String> testValues, BracketValidator validator) {
         long begin = System.nanoTime();
-        for (String value: testValues) {
+        for (String value : testValues) {
             boolean valid = validator.isValid(value);
         }
         long end = System.nanoTime();
+        return Duration.of(end - begin, ChronoUnit.NANOS);
+    }
 
-        var duration = Duration.of(end - begin, ChronoUnit.NANOS);
-        System.out.println("Took " + duration);
+    private static Duration runInNewThread(Callable<Duration> callable) throws InterruptedException, ExecutionException {
+        try (ExecutorService executor = Executors.newFixedThreadPool(1)) {
+            var future = executor.submit(callable);
+            return future.get();
+        }
     }
 
     private static List<String> generateTestValues() {
