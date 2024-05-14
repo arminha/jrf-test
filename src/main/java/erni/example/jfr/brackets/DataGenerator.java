@@ -1,7 +1,6 @@
 package erni.example.jfr.brackets;
 
 import java.util.Random;
-import java.util.Stack;
 
 public class DataGenerator {
 

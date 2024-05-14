@@ -11,7 +11,7 @@
 
 ### GUIs for analysis
 
-* [JDK Mission Control](https://github.com/openjdk/jmc)
+* [JDK Mission Control](https://www.oracle.com/missioncontrol) - [Github Repo](https://github.com/openjdk/jmc)
 * [VisualVM](https://visualvm.github.io/)
 * [Java JFR Profiler](https://plugins.jetbrains.com/plugin/20937-java-jfr-profiler) for IntelliJ
 
@@ -29,7 +29,7 @@ For our test we start the JFR with JVM parameters. We use the two default profil
 
 1. The [Profiling Profile](./profile.jfc) has around 2% performance overhead  
    `-XX:StartFlightRecording=dumponexit=true,settings=profile,filename=profile.jfr`
-2. The [Default Profile](./default.jfc) has around 1% performance overhead and is meant for continuous use in production   
+2. The [Default Profile](./default.jfc) has around 1% performance overhead and is meant for continuous use in production  
    `-XX:StartFlightRecording=dumponexit=true,settings=default,filename=default.jfr`
 
 ## Profiling

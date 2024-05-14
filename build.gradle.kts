@@ -19,6 +19,10 @@ application {
     mainClass = "erni.example.jfr.brackets.Main"
 }
 
+java {
+    setSourceCompatibility(21)
+}
+
 tasks.register<JavaExec>("runJfrProfilingConfig") {
     group = ApplicationPlugin.APPLICATION_GROUP
     mainClass = application.mainClass

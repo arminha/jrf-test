@@ -31,8 +31,7 @@ public class BracketValidator {
             case '(' -> closingBracket == ')';
             case '[' -> closingBracket == ']';
             case '{' -> closingBracket == '}';
-            case null -> false;
-            default -> false;
+            case null, default -> false;
         };
     }
 }
