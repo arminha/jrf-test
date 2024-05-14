@@ -32,19 +32,36 @@ For our test we start the JFR with JVM parameters. We use the two default profil
 2. The [Default Profile](./default.jfc) has around 1% performance overhead and is meant for continuous use in production  
    `-XX:StartFlightRecording=dumponexit=true,settings=default,filename=default.jfr`
 
+#### Basic Options
+
+| Option                                | Description                                                                                                                                                                                                                                                                                                                                                                                             | Default                 |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| `name=<identifier>`                   | Specifies a name identifier for the recording. This is useful when working from jcmd and operating multiple recordings running at the same time.                                                                                                                                                                                                                                                        | `1`, `2`, ...           |
+| `filename=<filename.jfr>`             | Specifies the file name of the generated recording. You can add a path to the recording filename to change the file location. The recording file stays empty and only gets populated once the recording finishes.                                                                                                                                                                                       | `hotspot-pid-%p-%t.jfr` |
+| `dumponexit=<true, false>`            | Controls whether to generate a recording file (dump a recording) if the JVM shuts down and the filename option has not been specified. The dumped recording filename is hotspot-pid-%p-%t.jfr                                                                                                                                                                                                           | `false`                 |
+| `disk=<true, false>`                  | Controls whether to create a temporary recording file under the path set in the repository option. Temporary recording means that a file is written to the system temporary directory during the time of the recording and is deleted afterwards. This recording file is populated gradually, unlike the file generated using the filename option, which is only populated once the recording finishes. | `true`                  |
+| `repository=<path/to/temp/recording>` | Specifies the path for a temporary recording if the disk option is enabled.                                                                                                                                                                                                                                                                                                                             | `/tmp/`                 |
+| `duration=<time in specified unit>`   | Specifies the recording length. Used time units: ns/ms/s/m/h/d. For example, 1800s or 30m.                                                                                                                                                                                                                                                                                                              | `0`, unlimited          |
+| `delay=<time in specified unit>`      | Specifies the amount of time that the recorder must wait before starting to record. Used time units: ns/ms/s/m/h/d. For example, 1800s or 30m.                                                                                                                                                                                                                                                          | `0`                     |
+| `maxage=<time in specified unit>`     | Specifies the maximum age of collected data                                                                                                                                                                                                                                                                                                                                                             | `0s`, unlimited         |
+| `maxsize`                             | Specifies the maximum size of buffers for collected data in bytes                                                                                                                                                                                                                                                                                                                                       | `0`, no max size        |
+| `settings=<path/to/settings/file>`    | Specifies the configuration file to be used. In case of a custom configuration file, use the full path to the .jfc file. Otherwise, use one of the presets `default` or `profile`.                                                                                                                                                                                                                      | `default`               |
+
 ## Profiling
+
+We are profiling the [BracketValidator](./src/main/java/erni/example/jfr/brackets/BracketValidator.java) class.
+It is an implementation of the [Balanced Brackets](https://www.hackerrank.com/challenges/balanced-brackets/problem)
+problem from HackerRank.
+
+There are two Gradle tasks set up to run a performance test with the Java Flight Recorder: `runJfrContinuousConfig` and `runJfrProfilingConfig`. 
 
 ### Method profiling
 
-TODO
+![method profiling](doc/method_profiling.png)
 
 ### Allocations
 
-
-Profiling -> Sampling not Tracing
-
-
-TODO
+![memory allocations](doc/allocations.png)
 
 ## Resources
 
