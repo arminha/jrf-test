@@ -50,13 +50,13 @@ class BracketValidatorTest {
     }
 
     @Test
-    void nestedBracketsAreValid() {
+    void nestedBalancedBracketsAreValid() {
         assertTrue(testee.isValid("([{}])"));
         assertTrue(testee.isValid("({}[])"));
     }
 
     @Test
-    void nestedBracketsAreNotValid() {
+    void nestedUnbalancedBracketsAreNotValid() {
         assertFalse(testee.isValid("([{}]))"));
     }
 }
