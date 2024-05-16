@@ -23,7 +23,7 @@ JMX streaming requires OpenJDK 17+.
 
 ### How to use it?
 
-There are lots of configuration knobs. Azul has a good [documentation](https://docs.azul.com/prime/Java-Flight-Recorder) and [Baeldung](https://www.baeldung.com/java-flight-recorder-monitoring) also describes some options.
+There are lots of configuration knobs. [Azul](https://docs.azul.com/prime/Java-Flight-Recorder) has a good documentation and [Baeldung](https://www.baeldung.com/java-flight-recorder-monitoring) also describes some options.
 
 For our test we start the JFR with JVM parameters. We use the two default profiles that come with the JVM.
 
